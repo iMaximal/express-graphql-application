@@ -9,7 +9,6 @@ stats.json
 *sublime*
 .DS_Store
 dist
-node_modules
 public
 manifest
 
