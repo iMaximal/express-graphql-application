@@ -1,11 +1,12 @@
 const graphql = require('graphql')
-const _ = require('lodash')
+const axios = require('axios')
 const {
   GraphQLObjectType,
   GraphQLInt,
   GraphQLString,
   GraphQLSchema
 } = graphql
+const DB_URL = require('./../constants')
 
 const users = [
   {
@@ -40,11 +41,13 @@ const RootQuery = new GraphQLObjectType({
         }
       },
       resolve(parentValue, args) {
-        return _.find(users, { id: args.id })
+        return axios.get(`${DB_URL}/users/${args.id}`)
+          .then(response => response.data)
       }
     }
   }
 })
+
 
 module.exports = new GraphQLSchema({
   query: RootQuery
